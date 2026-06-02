@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VALO & AWSMOSIS | Executive EQ Leadership Assessment Platform</title>
+    <style>
+        :root {
+            --primary-dark: #0f172a;
+            --primary-light: #1e293b;
+            --brand-purple: #6d28d9;
+            --brand-pink: #db2777;
+            --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            --card-bg: #ffffff;
+            --text-dark: #0f172a;
+            --text-muted: #475569;
+            --border-color: #cbd5e1;
+            --success: #15803d;
+            --success-bg: #f0fdf4;
+            --warning: #b45309;
+            --danger: #b91c1c;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: #334155;
+            min-height: 100vh;
+            padding: 20px 10px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        header {
+            background: linear-gradient(90deg, var(--primary-dark) 0%, #1e1b4b 100%);
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            border-bottom: 4px solid var(--brand-purple);
+        }
+
+        .brand-images {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+
+        .brand-logo-text {
+            font-size: 20px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            color: var(--brand-purple);
+        }
+
+        .brand-logo-text.pink-text {
+            color: var(--brand-pink);
+            border-left: 2px solid var(--border-color);
+            padding-left: 12px;
+        }
+
+        .header-title {
+            text-align: right;
+            color: white;
+        }
+
+        @media (max-width: 640px) {
+            header { flex-direction: column; text-align: center; align-items: center; }
+            .header-title { text-align: center; }
+        }
+
+        .header-title h1 {
+            font-size: 18px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .header-title p {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-top: 2px;
+        }
+
+        .view-pane {
+            padding: 30px 20px;
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .view-pane { padding: 40px; }
+        }
+
+        .view-pane.active {
+            display: block;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            font-size: 14px;
+            min-height: 48px;
+            user-select: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--brand-purple) 0%, #4c1d95 100%);
+            color: white;
+        }
+
+        .btn-primary:hover { opacity: 0.95; }
+
+        .btn-secondary {
+            background-color: #f1f5f9;
+            color: var(--primary-dark);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover { background-color: #e2e8f0; }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger) 0%, #7f1d1d 100%);
+            color: white;
+        }
+
+        .form-group { margin-bottom: 20px; }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary-dark);
+            font-size: 14px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 15px;
+            background: #f8fafc;
+            min-height: 48px;
+        }
+
+        .portal-hero-premium {
+            position: relative;
+            background-color: var(--primary-dark);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            min-height: 260px;
+            display: flex;
+            align-items: center;
+            border-left: 6px solid var(--brand-pink);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .portal-hero-bg-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.22;
+            pointer-events: none;
+        }
+
+        .portal-hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 40px 30px;
+            color: #ffffff;
+            max-width: 750px;
+        }
+
+        .portal-hero-content h2 {
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: 0.3px;
+        }
+
+        .portal-hero-content p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #cbd5e1;
+        }
+
+        .assessment-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .quadrant-tag {
+            background: #ede9fe;
+            color: var(--brand-purple);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 12px;
+            border: 1px solid #ddd6fe;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--brand-purple) 0%, var(--brand-pink) 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .scenario-box {
+            background: #f8fafc;
+            padding: 24px;
+            border-radius: 12px;
+            border-left: 6px solid var(--brand-purple);
+            margin-bottom: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary-dark);
+            line-height: 1.5;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 30px;
+        }
+
+        .option-item {
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 16px 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #fff;
+        }
+
+        .option-item:hover {
+            border-color: var(--brand-purple);
+            background: #fafafa;
+        }
+
+        .option-item.selected {
+            border-color: var(--brand-purple) !important;
+            background: #f5f3ff !important;
+            box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.1);
+        }
+
+        .option-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 15px;
+            line-height: 1.4;
+        }
+
+        .option-letter {
+            background: #e2e8f0;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .option-item.selected .option-letter {
+            background: var(--brand-purple);
+            color: white;
+        }
+
+        .option-hint {
+            margin-top: 12px;
+            margin-left: 38px;
+            font-size: 13px;
+            color: #334155;
+            background: #f8fafc;
+            padding: 12px 16px;
+            border-radius: 6px;
+            border-left: 3px solid var(--brand-purple);
+            display: none;
+        }
+
+        .option-item.selected .option-hint {
+            display: block;
+        }
+
+        .report-hero-banner {
+            background: linear-gradient(135deg, #1e1b4b 0%, var(--primary-dark) 100%);
+            padding: 30px;
+            border-radius: 12px;
+            color: white;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .report-brand-display {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 10px 18px;
+            border-radius: 6px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .audit-summary-box {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border: 1px solid #bfdbfe;
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            color: var(--primary-dark);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+        }
+
+        .metric-title { font-size: 11px; text-transform: uppercase; font-weight: 800; color: #64748b; letter-spacing: 0.5px; }
+        .metric-score { font-size: 32px; font-weight: 800; color: var(--primary-dark); margin: 4px 0; }
+        .metric-band { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 6px; display: inline-block; }
+
+        .band-advanced { background: #dcfce7; color: var(--success); }
+        .band-strong { background: #e0f2fe; color: #0369a1; }
+        .band-developing { background: #fef3c7; color: var(--warning); }
+        .band-priority { background: #fee2e2; color: var(--danger); }
+
+        .profile-badge-premium {
+            background: linear-gradient(90deg, var(--brand-purple) 0%, var(--brand-pink) 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 13px;
+            display: inline-block;
+            margin-top: 12px;
+        }
+
+        .report-section {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .report-section h4 {
+            color: var(--primary-dark);
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 8px;
+            letter-spacing: 0.2px;
+        }
+
+        .quadrant-analysis-block {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 14px;
+        }
+
+        .quadrant-analysis-block h5 {
+            font-size: 14.5px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 6px;
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .action-card {
+            padding: 16px;
+            border-radius: 8px;
+            border-left: 4px solid #cbd5e1;
+        }
+        .action-card.start { background-color: #f0fdf4; border-left-color: #22c55e; }
+        .action-card.stop { background-color: #fef2f2; border-left-color: #ef4444; }
+        .action-card.continue { background-color: #eff6ff; border-left-color: #3b82f6; }
+
+        .action-card h5 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+        .action-card.start h5 { color: #16a34a; }
+        .action-card.stop h5 { color: #dc2626; }
+        .action-card.continue h5 { color: #2563eb; }
+
+        .copyright-slide {
+            background: var(--primary-dark);
+            color: #94a3b8;
+            padding: 24px;
+            text-align: center;
+            border-top: 1px solid #1e293b;
+            font-size: 12px;
+            border-radius: 0 0 12px 12px;
+        }
+
+        .svg-icon {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; border: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="brand-images">
+            <span class="brand-logo-text">VALO</span>
+            <span class="brand-logo-text pink-text">AWSMOSIS</span>
+        </div>
+        <div class="header-title">
+            <h1>Predictive Analytics Leadership Center</h1>
+            <p>Daniel Goleman Model Emotional Intelligence Index</p>
+        </div>
+    </header>
+
+    <!-- VIEW 1: streamLined PARTICIPANT CENTRAL ENTRY CORE -->
+    <div id="view-landing" class="view-pane active">
+        <div class="portal-hero-premium">
+            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80" alt="Corporate Leadership Workspace Layout" class="portal-hero-bg-img">
+            <div class="portal-hero-content">
+                <h2>Executive Performance Gate</h2>
+                <p>Evaluating emotional intelligence variables through scenarios to map adaptive capabilities across leadership cohorts.</p>
+            </div>
+        </div>
+        
+        <div style="max-width: 550px; margin: 40px auto 20px auto; background: #f8fafc; border: 1px solid var(--border-color); padding: 30px; border-radius: 12px;">
+            <h3 style="margin-bottom: 20px; font-weight:700; font-size:20px; color: var(--primary-dark);">Initialize Leadership Evaluation</h3>
+            <div class="form-group">
+                <label>Candidate Full Name</label>
+                <input type="text" id="input-pname" class="form-control" placeholder="Enter your full name to generate report profile...">
+            </div>
+            <button class="btn btn-primary" style="width: 100%; margin-top: 10px;" onclick="startParticipantSession()">Launch Validation Loop</button>
+        </div>
+    </div>
+
+    <!-- VIEW 2: ACTIVE EVALUATION SCENARIOS MATRIX -->
+    <div id="view-assessment" class="view-pane">
+        <div class="assessment-meta">
+            <div id="display-quadrant-tag" class="quadrant-tag">Quadrant 1: Loading</div>
+            <div id="display-progress-text" style="font-weight:700; font-size:14px;">Sequence 0/40</div>
+        </div>
+        
+        <div class="progress-bar-container">
+            <div id="dynamic-progress-bar" class="progress-bar"></div>
+        </div>
+
+        <div id="display-scenario" class="scenario-box">Loading operational business situation vector scenario...</div>
+
+        <div id="display-options" class="options-list">
+            <!-- Programmatically Fed Options Injected Here -->
+        </div>
+
+        <div class="nav-controls" style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid #e2e8f0; padding-top:25px;">
+            <button id="btn-prev-question" class="btn btn-secondary" onclick="moveSequenceStep(-1)">
+                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg> Back Track
+            </button>
+            <button id="btn-next-question" class="btn btn-primary" onclick="moveSequenceStep(1)">
+                Next Track <svg class="svg-icon" style="fill:white;" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- VIEW 3: IMMUTABLE PERFORMANCE REPORT DECK -->
+    <div id="view-report-analysis" class="view-pane" style="background:#fafcff;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;" class="no-print">
+            <div style="color: var(--danger); font-weight: 700; font-size: 13px; display: flex; align-items: center; gap: 6px;">
+                <svg class="svg-icon" viewBox="0 0 24 24" style="fill:currentColor;"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                <span>Immutable Submission Safe Mode Locked</span>
+            </div>
+            <button class="btn btn-primary" onclick="window.print()">
+                <svg class="svg-icon" style="fill:white; margin-right:4px;" viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+                Download PDF / Print Report
+            </button>
+        </div>
+
+        <div class="report-hero-banner">
+            <div>
+                <h2 id="rep-candidate-name" style="font-size:24px; font-weight:800;">Executive Assessment Audit Blueprint</h2>
+                <p style="color:#94a3b8; font-size:14px; margin-top:4px;">Systemic Competency Mapping Matrix Dashboard</p>
+                <div id="rep-profile-tag" class="profile-badge-premium">Evaluating Equilibrium Configuration...</div>
+            </div>
+            <div class="report-brand-display">
+                <span class="brand-logo-text" style="font-size:16px;">VALO</span>
+                <span class="brand-logo-text pink-text" style="font-size:16px;">AWSMOSIS</span>
+            </div>
+        </div>
+
+        <div class="audit-summary-box">
+            <h3 style="font-weight:800; font-size:17px; margin-bottom:6px;">Target Evaluation Profile: <span id="rep-target-username" style="color:var(--brand-purple);">Candidate</span></h3>
+            <p style="font-size:14px; line-height:1.6;">
+                The diagnostic module registered an absolute performance result of <strong id="rep-raw-fraction" style="font-size:16px; color:var(--brand-purple);">00 / 40</strong> correct choices. Scores are split cleanly below into Daniel Goleman's 4-Quadrant metrics system using normalized parameters.
+            </p>
+        </div>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-title">Q1: Self-Awareness Index</div>
+                <div id="q1-score" class="metric-score">0.00</div>
+                <div id="q1-band" class="metric-band">Processing...</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-title">Q2: Self-Management Index</div>
+                <div id="q2-score" class="metric-score">0.00</div>
+                <div id="q2-band" class="metric-band">Processing...</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-title">Q3: Social Awareness Index</div>
+                <div id="q3-score" class="metric-score">0.00</div>
+                <div id="q3-band" class="metric-band">Processing...</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-title">Q4: Relationship Management</div>
+                <div id="q4-score" class="metric-score">0.00</div>
+                <div id="q4-band" class="metric-band">Processing...</div>
+            </div>
+        </div>
+
+        <div class="report-section">
+            <h4>Systemic Behavioral Vector Diagnosis & Rationale</h4>
+            <p id="rep-profile-desc" style="font-size: 14.5px;">Analyzing metadata streams...</p>
+        </div>
+
+        <div class="report-section">
+            <h4>Granular Quadrant Diagnostics & Development Analysis</h4>
+            <div id="rep-narrative-box" style="display: flex; flex-direction: column; gap: 4px;"></div>
+        </div>
+
+        <div class="report-section">
+            <h4>Targeted Leadership Action Alignment Matrix</h4>
+            <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 15px;">Dynamic execution parameters calibrated to your structural profile balance limits:</p>
+            <div class="action-grid" id="rep-action-matrix-container">
+                <!-- Action cards content dynamically injected -->
+            </div>
+        </div>
+
+        <div class="copyright-slide">
+            <p>© 2026 <strong>AWSMOSIS</strong> Corporate Ventures & <strong>VALO</strong> Executive Testing Systems. All Rights Reserved.</p>
+            <p style="font-size:11px; opacity:0.6; margin-top:4px;">This documentation constitutes intellectual properties parameters under global enterprise human optimization governance covenants. Transition Redefined.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // FULL VERBATIM DATASET MAPPED INTERNALLY
+    const dataset = [
+        {
+            id: 1, quadrant: 1, qlabel: "Self-Awareness",
+            text: "You receive critical feedback in a leadership review that you strongly disagree with. What is the most effective first response?",
+            correct: "C",
+            options: { A: "Defend your position using evidence", B: "Dismiss the feedback as biased", C: "Pause to reflect on emotional reactions before responding", D: "Seek validation from trusted colleagues" },
+            hints: { A: "Triggers immediate pushback loops before processing systemic insight values.", B: "Creates organizational blind spots; eliminates divergent evaluation sources.", C: "Correct: Initiates conscious self-regulation buffers, clearing downstream cognitive channels.", D: "Seeks social validation echo chambers rather than execution diagnostic profiling." }
+        },
+        {
+            id: 2, quadrant: 1, qlabel: "Self-Awareness",
+            text: "You notice recurring frustration during cross-functional meetings. What best demonstrates self-awareness?",
+            correct: "B",
+            options: { A: "Request fewer such meetings", B: "Recognise the emotional pattern and explore its cause", C: "Attribute the frustration to others’ incompetence", D: "Remain silent during discussions" },
+            hints: { A: "Avoidance routine that misses evaluating localized somatic stress points.", B: "Correct: Documents emotional trends and charts internal friction variables directly.", C: "Deflects ownership onto environment fields; flags lower personal alignment indexes.", D: "Passive posturing that conceals deep operational friction without resolving it." }
+        },
+        {
+            id: 3, quadrant: 1, qlabel: "Self-Awareness",
+            text: "A high-stakes decision did not produce expected results. What indicates strong self-awareness?",
+            correct: "B",
+            options: { A: "Explaining external reasons for failure", B: "Acknowledging personal decision biases involved", C: "Waiting for others to raise concerns", D: "Reframing the outcome as unavoidable" },
+            hints: { A: "Attributes failure to external circumstances to protect internal ego variables.", B: "Correct: Pinpoints personal cognitive gaps or heuristic biases openly.", C: "Reactive approach indicating low ownership profile dynamics.", D: "Rationalization loops that stall agile corporate adjustment iterations." }
+        },
+        {
+            id: 4, quadrant: 1, qlabel: "Self-Awareness",
+            text: "During a tense discussion, you feel unusually defensive. What is the most effective action?",
+            correct: "C",
+            options: { A: "End the discussion immediately", B: "Continue without acknowledging feelings", C: "Mentally label the emotion and slow your response", D: "Redirect the conversation to safer topics" },
+            hints: { A: "Abrupt termination triggers organizational friction and demonstrates low endurance thresholds.", B: "Suppression allows implicit negative currents to affect decision quality metrics.", C: "Correct: Affect labeling reduces amygdala response, returning control to logical reasoning.", D: "Avoidance technique that leaves primary situational root causes unmanaged." }
+        },
+        {
+            id: 5, quadrant: 1, qlabel: "Self-Awareness",
+            text: "Which behaviour best reflects awareness of personal impact?",
+            correct: "A",
+            options: { A: "Adjusting communication after noticing others disengage", B: "Asking HR for feedback annually", C: "Maintaining consistency regardless of reactions", D: "Avoiding emotionally charged conversations" },
+            hints: { A: "Correct: Real-time loop adjustments based on field communication responses.", B: "Compliant formal checking mechanism lacking dynamic adjustments.", C: "Rigid posture mistaken for stability; overlooks real behavioral metrics.", D: "Bypasses key organizational conflict spaces entirely." }
+        },
+        {
+            id: 6, quadrant: 1, qlabel: "Self-Awareness",
+            text: "When facing repeated resistance to your ideas, what should you examine first?",
+            correct: "C",
+            options: { A: "Others’ motivations", B: "Political dynamics", C: "Your own assumptions and delivery style", D: "The organisational culture" },
+            hints: { A: "Shifts investigation outside the self before completing internal checks.", B: "Blames friction on background networks instead of personal communication style.", C: "Correct: Internal validation check to adjust delivery mechanisms and underlying assumptions.", D: "Macro-analysis step used to dodge micro performance debugging tasks." }
+        },
+        {
+            id: 7, quadrant: 1, qlabel: "Self-Awareness",
+            text: "Which response shows accurate self-assessment?",
+            correct: "B",
+            options: { A: "Highlighting strengths consistently", B: "Balancing confidence with acknowledgement of limits", C: "Avoiding tasks outside comfort zone", D: "Seeking reassurance frequently" },
+            hints: { A: "Compensation posture used to establish artificial security benchmarks.", B: "Correct: Pragmatically evaluates operational capability limits without reducing output value.", C: "Stagnates management growth to avoid performance metrics risks.", D: "External dependency setup indicating a shortfall in internal validation metrics." }
+        },
+        {
+            id: 8, quadrant: 1, qlabel: "Self-Awareness",
+            text: "After a stressful presentation, what is the most constructive reflection?",
+            correct: "C",
+            options: { A: "Focus on audience mistakes", B: "Replay everything mentally", C: "Identify emotional triggers and performance impact", D: "Ignore the experience" },
+            hints: { A: "Projects outcome accountability outward away from personal control bounds.", B: "Ruminative thinking that fuels tension instead of isolating data points.", C: "Correct: Structural analysis of stress vectors to optimize subsequent delivery approaches.", D: "Repression response that misses key development tracking milestones." }
+        },
+        {
+            id: 9, quadrant: 1, qlabel: "Self-Awareness",
+            text: "Which leader behaviour best reflects self-awareness?",
+            correct: "C",
+            options: { A: "Strong opinions expressed confidently", B: "Consistent emotional neutrality", C: "Awareness of how mood affects decisions", D: "Avoidance of emotional topics" },
+            hints: { A: "Assertive outward stance, independent of accurate internal self-tracking data.", B: "Displays an unruffled front, but does not guarantee accurate internally felt insight.", C: "Correct: Monitors baseline mood shifts as key variables that can skew logic profiles.", D: "Defensive perimeter setup that limits deep collaborative engagement loops." }
+        },
+        {
+            id: 10, quadrant: 1, qlabel: "Self-Awareness",
+            text: "What indicates low self-awareness?",
+            correct: "C",
+            options: { A: "Seeking feedback selectively", B: "Recognising emotional triggers", C: "Being surprised by others’ reactions frequently", D: "Adjusting behaviour after reflection" },
+            hints: { A: "Suboptimal filtering strategy, but remains consciously protective.", B: "Core foundation milestone of accurate self-tracking loops.", C: "Correct: Signals a significant gap between intended impact and actual field reception metrics.", D: "Adaptive adjustments following intentional feedback integration loops." }
+        },
+        {
+            id: 11, quadrant: 2, qlabel: "Self-Management",
+            text: "You receive an urgent request during an already overloaded day. What is the most effective response?",
+            correct: "C",
+            options: { A: "Agree immediately", B: "Decline abruptly", C: "Pause, prioritise, and respond deliberately", D: "Ignore until later" },
+            hints: { A: "Impulsive compliance risking quality drops and boundary depletion.", B: "Reactive stance that can damage relations with cross-functional partners.", C: "Correct: Applies a conscious pause to systematically assess capacity constraints.", D: "Passive avoidance that risks driving delivery streams into critical roadblocks." }
+        },
+        {
+            id: 12, quadrant: 2, qlabel: "Self-Management",
+            text: "A team member challenges you publicly. What shows emotional self-control?",
+            correct: "B",
+            options: { A: "Correcting them sharply", B: "Deferring the discussion calmly", C: "Matching their tone", d: "Ending the meeting" },
+            hints: { A: "Defends hierarchical status using a volatile, immediate ego response loop.", B: "Correct: Maintains group alignment, preserves authority, and creates safe workspace options.", C: "Escalates friction, degrading standard workplace etiquette metrics.", d: "Ending the meeting" }
+        },
+        {
+            id: 13, quadrant: 2, qlabel: "Self-Management",
+            text: "Under pressure, what behaviour best reflects emotional regulation?",
+            correct: "C",
+            options: { A: "Suppressing emotions", B: "Expressing frustration openly", C: "Channeling emotions into focused action", D: "Withdrawing from interaction" },
+            hints: { A: "Bottles internal cognitive load, increasing the risk of sudden micro-outbursts later.", B: "Unfiltered output delivery that compromises group alignment parameters.", C: "Correct: Sublimation technique that channels emotional energy directly into execution tasks.", D: "Isolation choice that leaves active operational tracks without guidance." }
+        },
+        {
+            id: 14, quadrant: 2, qlabel: "Self-Management",
+            text: "A change initiative you supported is delayed unexpectedly. What is the best response?",
+            correct: "C",
+            options: { A: "Express disappointment widely", B: "Blame decision-makers", C: "Adjust plans and maintain momentum", D: "Pause all related activities" },
+            hints: { A: "Spreads negative sentiment, lowering employee engagement markers across units.", B: "Deflects systematic friction metrics to maintain personal political comfort.", C: "Correct: Classic agility execution—recalibrates targets without losing operational focus.", D: "Paralysis reaction that multiplies the fallout of external delays." }
+        },
+        {
+            id: 15, quadrant: 2, qlabel: "Self-Management",
+            text: "Which behaviour best demonstrates adaptability?",
+            correct: "C",
+            options: { A: "Maintaining original plans", B: "Reacting quickly to change", C: "Modifying approach without emotional escalation", D: "Waiting for clarity" },
+            hints: { A: "Rigid adherence that guarantees collision courses with real-world limitations.", B: "Risks erratic adjustments without validating data trends first.", C: "Correct: Flexibly updates tactics while decoupling external adjustments from internal calm vectors.", D: "Stalls proactivity, ceding ground to incoming market or operational shifts." }
+        },
+        {
+            id: 16, quadrant: 2, qlabel: "Self-Management",
+            text: "A stressful interaction lingers mentally. What is the most effective strategy?",
+            correct: "C",
+            options: { A: "Venting repeatedly", B: "Ignoring emotions", C: "Using reflection techniques to regain focus", D: "Distracting yourself indefinitely" },
+            hints: { A: "Reinforces negative neural pathways through social echo-chamber loops.", B: "Allows background stress markers to quietly distort unrelated analytical spaces.", C: "Correct: Systematic reframing designed to clear residual emotional blockages.", D: "Temporary fix that leaves underlying core conflicts unaddressed." }
+        },
+        {
+            id: 17, quadrant: 2, qlabel: "Self-Management",
+            text: "What reflects poor impulse control?",
+            correct: "B",
+            options: { A: "Asking clarifying questions", B: "Sending emotional emails immediately", C: "Delaying responses intentionally", d: "Choosing words carefully" },
+            hints: { A: "Information-gathering choice used to stall raw emotional reactions.", B: "Correct: Volatile behavioral output that permanently logs emotional updates on core company databases.", C: "Proactive strategic pause allowing affective charges to pass.", d: "Choosing words carefully" }
+        },
+        {
+            id: 18, quadrant: 2, qlabel: "Self-Management",
+            text: "When frustrated with slow progress, what should a leader do?",
+            correct: "B",
+            options: { A: "Increase pressure impulsively", B: "Reassess strategy calmly", C: "Escalate emotionally", D: "Withdraw support" },
+            hints: { A: "Erratic micromanagement that sparks defensive work slowdowns down the line.", B: "Correct: Focuses on structural barriers over attacking personnel capability scores.", C: "Outburst patterns that break down trust networks across human resource lines.", D: "Passive-aggressive withdrawal that halts secondary recovery options." }
+        },
+        {
+            id: 19, quadrant: 2, qlabel: "Self-Management",
+            text: "What best reflects resilience?",
+            correct: "B",
+            options: { A: "Avoiding stressful roles", B: "Remaining effective despite setbacks", C: "Maintaining optimism verbally", D: "Ignoring failure" },
+            hints: { A: "Avoidance framework that artificially caps career scope scaling opportunities.", B: "Correct: Keeps output stable across prolonged external disruption spikes.", C: "Superficial optimism projection lacking verified root execution values.", D: "Denial-based defense loop that filters out crucial performance calibration metrics." }
+        },
+        {
+            id: 20, quadrant: 2, qlabel: "Self-Management",
+            text: "Which behaviour undermines self-management?",
+            correct: "A",
+            options: { A: "Emotional outbursts under pressure", B: "Thoughtful decision-making", C: "Managing reactions consciously", D: "Seeking constructive outlets" },
+            hints: { A: "Correct: Clear failure of internal control, draining team cohesion metrics.", B: "Deliberate executive control setup that reduces near-term cognitive errors.", C: "The foundational baseline for high self-regulation metrics.", D: "Directs internal tension safely to productive personal development channels." }
+        },
+        {
+            id: 21, quadrant: 3, qlabel: "Social Awareness",
+            text: "A colleague seems disengaged but hasn’t spoken up. What is the best leadership response?",
+            correct: "C",
+            options: { A: "Ignore until performance drops", B: "Address publicly", C: "Explore privately with curiosity", D: "Assume lack of motivation" },
+            hints: { A: "Reactive style that lets workplace issues develop into metric failures.", B: "Public exposure prompts defensive reactions, elevating localized anxiety markers.", C: "Correct: Re-establishes alignment through personal, non-threatening tracking conversations.", D: "Fundamental attribution error that ignores external systemic context variables." }
+        },
+        {
+            id: 22, quadrant: 3, qlabel: "Social Awareness",
+            text: "In a meeting, one stakeholder dominates discussion. What shows social awareness?",
+            correct: "C",
+            options: { A: "Allowing it to continue", B: "Challenging directly", C: "Creating space for quieter voices", D: "Ending early" },
+            hints: { A: "Passive approach that lets one perspective dominate the team information flow.", B: "Creates a public status battle, risking communication shutdowns.", C: "Correct: Balanced field tracking; reallocates speaking opportunities across team nodes.", D: "Avoidance routine that shuts down group interaction ahead of target results." }
+        },
+        {
+            id: 23, quadrant: 3, qlabel: "Social Awareness",
+            text: "Which behaviour best reflects empathy?",
+            correct: "B",
+            options: { A: "Agreeing with others", B: "Understanding perspectives without endorsing them", C: "Avoiding conflict", D: "Offering reassurance immediately" },
+            hints: { A: "Conflates operational consensus with cognitive tracking of emotional states.", B: "Correct: High-level cognitive empathy—maps counterparty viewpoints accurately without ceding strategic logic.", C: "Fear of friction; avoids addressing underlying behavioral problem variables.", D: "Premature comfort looping that minimizes distinct perspective data fields." }
+        },
+        {
+            id: 24, quadrant: 3, qlabel: "Social Awareness",
+            text: "A team reacts negatively to a new policy. What should you assess first?",
+            correct: "B",
+            options: { A: "Compliance risks", B: "Emotional impact on different groups", C: "Communication frequency", D: "Timeline" },
+            hints: { A: "Attempts enforcement protocols without checking the primary human drivers.", B: "Correct: Maps emotional currents across cohorts to identify alignment blockers.", C: "Tracks delivery volume while missing qualitative reception indicators.", D: "Focuses on schedule benchmarks while overlooking underlying human friction." }
+        },
+        {
+            id: 25, quadrant: 3, qlabel: "Social Awareness",
+            text: "What indicates poor social awareness?",
+            correct: "A",
+            options: { A: "Misreading emotional cues", B: "Asking clarifying questions", C: "Adapting tone", D: "Recognising unspoken concerns" },
+            hints: { A: "Correct: A functional breakdown in decoding incoming contextual social data points.", B: "Proactive verification check used to align internal assumptions with external facts.", C: "Modifies output delivery formats to increase harmony with the audience.", D: "Perceives low-level emotional signals before they turn into overt risks." }
+        },
+        {
+            id: 26, quadrant: 3, qlabel: "Social Awareness",
+            text: "During negotiations, what is critical for social awareness?",
+            correct: "B",
+            options: { A: "Strong arguments", B: "Understanding emotional drivers", C: "Maintaining authority", D: "Speed of response" },
+            hints: { A: "Relies entirely on logical frameworks, ignoring latent interest priorities.", B: "Correct: Identifies hidden value options by tracking the other party's core stress points.", C: "Focuses on status metrics over discovering collaborative paths forward.", D: "Prioritizes execution speed over accurate context adjustments." }
+        },
+        {
+            id: 27, quadrant: 3, qlabel: "Social Awareness",
+            text: "A peer appears resistant but says little. What is the best interpretation?",
+            correct: "B",
+            options: { A: "Lack of competence", B: "Hidden emotional concerns", C: "Disinterest", D: "Agreement" },
+            hints: { A: "Defaults to personal capacity assumptions without checking performance metrics.", B: "Correct: Realizes outward resistance frequently shields underlying professional risks.", C: "Attributes silence to motivation drops without exploring context markers.", D: "High-risk assumption; mistakes quiet compliance for real buy-in values." }
+        },
+        {
+            id: 28, quadrant: 3, qlabel: "Social Awareness",
+            text: "What behaviour demonstrates organisational awareness?",
+            correct: "B",
+            options: { A: "Focusing only on own objectives", B: "Understanding informal influence networks", C: "Avoiding politics", d: "Following hierarchy strictly" },
+            hints: { A: "Siloed execution mindset that ignores system cross-dependencies.", B: "Correct: Maps out power and decision flows beyond formal org chart parameters.", C: "Naive approach that overlooks the reality of internal political frameworks.", d: "Following hierarchy strictly" }
+        },
+        {
+            id: 29, quadrant: 3, qlabel: "Social Awareness",
+            text: "What undermines empathy?",
+            correct: "B",
+            options: { A: "Active listening", B: "Premature problem-solving", C: "Curiosity", D: "Perspective-taking" },
+            hints: { A: "Enhances field calibration metrics by capturing essential human data inputs.", B: "Correct: Blocks the emotional exploration loop to impose premature analytical models.", C: "Keeps tracking pathways open to gather nuanced operational updates.", d: "Perspective-taking" }
+        },
+        {
+            id: 30, quadrant: 3, qlabel: "Social Awareness",
+            text: "Which leader action best reflects social awareness?",
+            correct: "C",
+            options: { A: "Clear authority", B: "Emotional neutrality", C: "Adjusting message to emotional context", D: "Standardised communication" },
+            hints: { A: "Signals status dominance, separate from tracking group sentiment fields.", B: "Projects a cool style that can be misread as coldness by staff networks.", C: "Correct: Calibrates communication delivery based on the current emotional state of the audience.", D: "Treats human assets as identical components, risking message mismatches." }
+        },
+        {
+            id: 31, quadrant: 4, qlabel: "Relationship Management",
+            text: "A conflict arises between two high performers. What is the best approach?",
+            correct: "C",
+            options: { A: "Avoid involvement", B: "Take sides", C: "Facilitate dialogue focused on interests", d: "Escalate immediately" },
+            hints: { A: "Neglects relationship dynamics, leaving performance paths to degrade.", B: "Damages secondary network connections through biased alignment choices.", C: "Correct: Employs collaborative mediation to locate mutually beneficial integration vectors.", D: "Signals internal failure, shifting leadership duties up the corporate chain." }
+        },
+        {
+            id: 32, quadrant: 4, qlabel: "Relationship Management",
+            text: "When influencing senior stakeholders, what is most effective?",
+            correct: "C",
+            options: { A: "Logical arguments alone", B: "Authority", C: "Aligning emotional and business interests", D: "Persistence" },
+            hints: { A: "Misses how emotional risk tolerances shape senior leadership choices.", B: "Rarely effective when managing upward; runs counter to leverage realities.", C: "Correct: Connects strategic metrics directly to the emotional and security values of leaders.", D: "Risks becoming intrusive badgering without subtle delivery modifications." }
+        },
+        {
+            id: 33, quadrant: 4, qlabel: "Relationship Management",
+            text: "Which behaviour strengthens trust?",
+            correct: "A",
+            options: { A: "Consistency between words and actions", B: "Frequent reassurance", C: "Transparency without tact", D: "Avoiding difficult conversations" },
+            hints: { A: "Correct: Lowers alignment variance expectations, building clear psychological safety values.", B: "Can appear as empty placating without measurable performance to back it up.", C: "Abrasive delivery style that can break team connection points unnecessarily.", D: "Trades long-term performance stability for short-term personal comfort." }
+        },
+        {
+            id: 34, quadrant: 4, qlabel: "Relationship Management",
+            text: "A team resists feedback. What is the best response?",
+            correct: "B",
+            options: { A: "Push harder", B: "Reframe feedback constructively", C: "Withdraw", D: "Delegate responsibility" },
+            hints: { A: "Triggers strong defensive walls, stalling skill progression indexes.", B: "Correct: Uses strategic reframing to position adjustments as professional assets rather than personal status threats.", C: "Abandons guidance loops the moment team friction vectors emerge.", D: "Passes coaching duties onto secondary layers, weakening leadership authority." }
+        },
+        {
+            id: 35, quadrant: 4, qlabel: "Relationship Management",
+            text: "What demonstrates effective relationship management?",
+            correct: "B",
+            options: { A: "Managing impressions", B: "Navigating emotions during conflict", C: "Maintaining control", D: "Avoiding disagreement" },
+            hints: { A: "Focuses on personal PR presentation rather than deep relational alignment.", B: "Correct: Stabilizes group dynamics during high-stakes operational friction events.", C: "Relies on rigid command-and-control styles, depressing psychological safety markers.", D: "Creates artificial cohesion while leaving deep performance systemic issues unaddressed." }
+        },
+        {
+            id: 36, quadrant: 4, qlabel: "Relationship Management",
+            text: "Which action builds long-term influence?",
+            correct: "B",
+            options: { A: "Short-term persuasion", B: "Consistent emotional credibility", C: "Positional power", D: "Escalation" },
+            hints: { A: "Transactional approach that drains personal relationship equity balances over time.", B: "Correct: Establishes a track record of mutual respect and reliable communication histories.", C: "Relies on formal authority cards, failing in matrix or cross-functional networks.", D: "Weakens self-sufficiency metrics by consistently calling on outside authority." }
+        },
+        {
+            id: 37, quadrant: 4, qlabel: "Relationship Management",
+            text: "What weakens collaboration?",
+            correct: "B",
+            options: { A: "Clear expectations", B: "Emotional defensiveness", C: "Mutual goals", D: "Open communication" },
+            hints: { A: "Clarifies role boundaries, smoothing cross-departmental delivery tasks.", B: "Correct: Shuts down feedback integration and creates alignment barriers.", C: "Aligns distinct project nodes toward a unified destination benchmark.", D: "Allows teams to raise flags on operational issues before they disrupt delivery." }
+        },
+        {
+            id: 38, quadrant: 4, qlabel: "Relationship Management",
+            text: "A stakeholder reacts emotionally to bad news. What should you do?",
+            correct: "B",
+            options: { A: "Present more data", B: "Pause and acknowledge emotions", C: "End discussion", D: "Redirect immediately" },
+            hints: { A: "Floods an overloaded emotional state with numbers, increasing cognitive resistance.", B: "Correct: Lowers stress reactions by recognizing and naming the current emotional context first.", C: "Breaks the working connection, leaving the partner stranded in high stress levels.", d: "Redirect immediately" }
+        },
+        {
+            id: 39, quadrant: 4, qlabel: "Relationship Management",
+            text: "Which leader behaviour supports change adoption?",
+            correct: "B",
+            options: { A: "Authority-driven messaging", B: "Empathic communication and influence", C: "Compliance tracking", D: "Repetition" },
+            hints: { A: "Forces external submission while inviting hidden passive resistance variables.", B: "Correct: Directly links systematic updates to the personal benefit values of staff.", C: "Measures policy application rates without resolving root motivational friction blocks.", d: "Repetition" }
+        },
+        {
+            id: 40, quadrant: 4, qlabel: "Relationship Management",
+            text: "What indicates poor relationship management?",
+            correct: "A",
+            options: { A: "Avoiding emotional conversations", B: "Constructive conflict handling", C: "Building alliances", d: "Managing disagreement productively" },
+            hints: { A: "Correct: Leaves critical operational risk zones unresolved due to personal discomfort markers.", B: "Healthy approach; resolves design differences without breaking baseline trust layers.", C: "Builds out vital collaborative bridges across deep enterprise layout grids.", d: "Managing disagreement productively" }
+        }
+    ];
+
+    let activeUser = "";
+    let activeQuestionIndex = 0;
+    let liveCandidateResponses = {};
+
+    function switchView(viewId) {
+        var elements = document.querySelectorAll('.view-pane');
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].classList.remove('active');
+        }
+        document.getElementById(viewId).classList.add('active');
+        window.scrollTo(0,0);
+    }
+
+    function startParticipantSession() {
+        var nameVal = document.getElementById('input-pname').value.trim();
+        if (!nameVal) {
+            alert("Verification Failure: Identity parameters are mandatory.");
+            return;
+        }
+
+        activeUser = nameVal;
+        activeQuestionIndex = 0;
+        liveCandidateResponses = {};
+
+        renderSequenceFrame();
+        switchView('view-assessment');
+    }
+
+    function renderSequenceFrame() {
+        var targetQ = dataset[activeQuestionIndex];
+        var progressPct = (activeQuestionIndex / dataset.length) * 100;
+        
+        document.getElementById('display-quadrant-tag').innerText = "Quadrant " + targetQ.quadrant + ": " + targetQ.qlabel;
+        document.getElementById('display-progress-text').innerText = "Item: " + (activeQuestionIndex + 1) + " / " + dataset.length;
+        document.getElementById('dynamic-progress-bar').style.width = progressPct + "%";
+        document.getElementById('display-scenario').innerText = "Situation Q" + targetQ.id + ": " + targetQ.text;
+
+        var optionsContainer = document.getElementById('display-options');
+        optionsContainer.innerHTML = "";
+
+        var savedAnswer = liveCandidateResponses[targetQ.id];
+
+        for (var key in targetQ.options) {
+            if (targetQ.options.hasOwnProperty(key)) {
+                var value = targetQ.options[key];
+                var isThisSelected = savedAnswer === key;
+                
+                var node = document.createElement('div');
+                node.className = "option-item" + (isThisSelected ? ' selected' : '');
+                
+                (function(k) {
+                    node.onclick = function() { changeChoiceResponse(targetQ.id, k); };
+                })(key);
+
+                node.innerHTML = '<div class="option-header"><span class="option-letter">' + key + '</span><span>' + value + '</span></div>' +
+                                 '<div class="option-hint"><strong>Predictive Impact Analytics:</strong> ' + targetQ.hints[key] + '</div>';
+                
+                optionsContainer.appendChild(node);
+            }
+        }
+
+        document.getElementById('btn-prev-question').style.visibility = activeQuestionIndex === 0 ? 'hidden' : 'visible';
+        
+        var nextBtn = document.getElementById('btn-next-question');
+        if (activeQuestionIndex === dataset.length - 1) {
+            nextBtn.innerHTML = 'Compile Final Report';
+        } else {
+            nextBtn.innerHTML = 'Next Track';
+        }
+    }
+
+    function changeChoiceResponse(qId, choiceKey) {
+        liveCandidateResponses[qId] = choiceKey;
+        renderSequenceFrame();
+    }
+
+    function moveSequenceStep(dir) {
+        if (dir === 1 && !liveCandidateResponses[dataset[activeQuestionIndex].id]) {
+            alert("System Restriction: Selection required before advancing step tracks.");
+            return;
+        }
+
+        activeQuestionIndex += dir;
+
+        if (activeQuestionIndex >= dataset.length) {
+            activeQuestionIndex = dataset.length - 1;
+            compileExecutiveReportBlueprint();
+        } else {
+            renderSequenceFrame();
+        }
+    }
+
+    function compileExecutiveReportBlueprint() {
+        var totalCorrect = 0;
+        var tracking = { 1: 0, 2: 0, 3: 0, 4: 0 };
+        
+        dataset.forEach(function(item) {
+            if(liveCandidateResponses[item.id] === item.correct) {
+                tracking[item.quadrant]++;
+                totalCorrect++;
+            }
+        });
+
+        document.getElementById('rep-target-username').innerText = activeUser;
+        document.getElementById('rep-raw-fraction').innerText = totalCorrect + " / 40";
+
+        var n1 = (tracking[1] / 10) * 5;
+        var n2 = (tracking[2] / 10) * 5;
+        var n3 = (tracking[3] / 10) * 5;
+        var n4 = (tracking[4] / 10) * 5;
+
+        document.getElementById('q1-score').innerText = n1.toFixed(2);
+        document.getElementById('q2-score').innerText = n2.toFixed(2);
+        document.getElementById('q3-score').innerText = n3.toFixed(2);
+        document.getElementById('q4-score').innerText = n4.toFixed(2);
+
+        applyPremiumBandFormatting('q1-band', n1);
+        applyPremiumBandFormatting('q2-band', n2);
+        applyPremiumBandFormatting('q3-band', n3);
+        applyPremiumBandFormatting('q4-band', n4);
+
+        var titleTag = "";
+        var descText = "";
+
+        var meetsHighBalanced = (n1 >= 3.8 && n2 >= 3.8 && n3 >= 3.8 && n4 >= 3.8);
+        var hasRiskVectors = (n1 < 3.0 || n2 < 3.0 || n3 < 3.0 || n4 < 3.0);
+        var internalBias = (n1 >= 3.5 && n2 >= 3.5) && (n3 < 3.5 || n4 < 3.5);
+        var externalBias = (n3 >= 3.5 && n4 >= 3.5) && (n1 < 3.5 || n2 < 3.5);
+
+        if (meetsHighBalanced) {
+            titleTag = "Balanced High EQ Profile Configuration";
+            descText = "DIAGNOSTIC EXECUTIVE ARCHETYPE SUMMARY: Balanced High EQ. All dimensions are strongly synchronized. " + activeUser + " demonstrates cohesive emotional maturity metrics distributed evenly across both internal self-regulation buffers and external alignment networks. This equilibrium model indicates an executive optimized to direct cross-functional architectures without experiencing processing degradation or introducing trust leakage during sustained market crises.";
+        } else if (hasRiskVectors) {
+            titleTag = "Leadership Risk Profile Alert";
+            descText = "DIAGNOSTIC EXECUTIVE ARCHETYPE SUMMARY: Leadership Risk Profile. Core capability parameters drop below the critical 3.00 baseline marker in localized sections. Under extended friction vectors, " + activeUser + " exhibits a tendency to fall back on immediate defensive positions or structural blind spots, presenting operational exposure markers for delivery timeline consistency.";
+        } else if (internalBias) {
+            titleTag = "Internal EQ Dominant Bias Model";
+            descText = "DIAGNOSTIC EXECUTIVE ARCHETYPE SUMMARY: Internal EQ Bias. " + activeUser + " processes internal emotional regulation loops and structural self-assessment checks with advanced competence. However, the score variations diminish in field domains, indicating a potential vulnerability to overlooking hidden stakeholder motivations or unmapped influence networks.";
+        } else if (externalBias) {
+            titleTag = "External EQ Dominant Bias Model";
+            descText = "DIAGNOSTIC EXECUTIVE ARCHETYPE SUMMARY: External EQ Bias. " + activeUser + " exhibits high capacity for collaborative consensus, active empathy mapping, and interpersonal diplomacy. However, low score results in internal loops signal an increased vulnerability to emotional battery exhaustion or immediate impulse failures during aggressive budget reductions.";
+        } else {
+            titleTag = "Transitional Standard Leadership Portfolio";
+            descText = "DIAGNOSTIC EXECUTIVE ARCHETYPE SUMMARY: Standard Adaptive Model. " + activeUser + " applies baseline emotional logic loops steadily across standard metrics blocks, relying primarily on established organizational hierarchies rather than highly fluid behavioral adjustments.";
+        }
+
+        document.getElementById('rep-candidate-name').innerText = "Performance Diagnostic Audit: " + activeUser;
+        document.getElementById('rep-profile-tag').innerText = titleTag;
+        document.getElementById('rep-profile-desc').innerText = descText;
+
+        buildGranularQuadrantNarrativeAndActionMatrix(activeUser, n1, n2, n3, n4, titleTag);
+        switchView('view-report-analysis');
+    }
+
+    function applyPremiumBandFormatting(elemId, score) {
+        var elem = document.getElementById(elemId);
+        elem.className = "metric-band";
+        if(score >= 4.20) { elem.innerText = "Advanced EQ Capability"; elem.classList.add('band-advanced'); }
+        else if (score >= 3.50) { elem.innerText = "Strong and Effective"; elem.classList.add('band-strong'); }
+        else if (score >= 3.00) { elem.innerText = "Developing"; elem.classList.add('band-developing'); }
+        else { elem.innerText = "Development Priority"; elem.classList.add('band-priority'); }
+    }
+
+    function buildGranularQuadrantNarrativeAndActionMatrix(targetUser, q1, q2, q3, q4, profileType) {
+        var narrativeBox = document.getElementById('rep-narrative-box');
+        var matrixContainer = document.getElementById('rep-action-matrix-container');
+        
+        narrativeBox.innerHTML = "";
+        matrixContainer.innerHTML = "";
+
+        var q1HeaderStr = "Quadrant 1: Self-Awareness (Current Score: " + q1.toFixed(2) + ") — ";
+        var q1BodyStr = "";
+        if (q1 >= 4.20) {
+            q1BodyStr = q1HeaderStr + "<strong>Quadrant Strength.</strong> This area represents a strong emotional intelligence capability. The individual consistently demonstrates effective emotional judgement in complex leadership situations. " + targetUser + " exhibits acute self-insight, cleanly identifying personal somatic trigger markers and tracking the direct impact of personal delivery style trends upon cross-functional allies.";
+        } else if (q1 < 3.50) {
+            q1BodyStr = q1HeaderStr + "<strong>Quadrant Development Area.</strong> This area may limit leadership effectiveness under pressure. Targeted development will significantly enhance influence, decision quality, and team outcomes. " + targetUser + " demonstrates an operational exposure block to missing subtle behavioral cues, leading to personal surprise markers during negative team feedback loops.";
+        } else {
+            q1BodyStr = q1HeaderStr + "<strong>Quadrant Stable Baseline.</strong> " + targetUser + " demonstrates reliable monitoring of emotional baselines during standard project tasks, processing feedback paths with minimal defensive interference.";
+        }
+
+        var q2HeaderStr = "Quadrant 2: Self-Management (Current Score: " + q2.toFixed(2) + ") — ";
+        var q2BodyStr = "";
+        if (q2 >= 4.20) {
+            q2BodyStr = q2HeaderStr + "<strong>Quadrant Strength.</strong> This area represents a strong emotional intelligence capability. The individual consistently demonstrates effective emotional judgement in complex leadership situations. " + targetUser + " maintains complete internal impulse regulation boundaries, successfully converting intense workspace pressure variables into high-velocity execution tracks without transferring cognitive friction onto subordinates.";
+        } else if (q2 < 3.50) {
+            q2BodyStr = q2HeaderStr + "<strong>Quadrant Development Area.</strong> This area may limit leadership effectiveness under pressure. Targeted development will significantly enhance influence, decision quality, and team outcomes. " + targetUser + " points to vulnerable impulse buffering indexes, creating high-risk exposure for sudden defensive digital communications or immediate verbal counter-attacks when corporate timelines derail unexpectedly.";
+        } else {
+            q2BodyStr = q2HeaderStr + "<strong>Quadrant Stable Baseline.</strong> " + targetUser + " displays stable control metrics under ordinary milestone weights, adapting standard goals safely without experiencing structural behavioral whiplash loops.";
+        }
+
+        var q3HeaderStr = "Quadrant 3: Social Awareness (Current Score: " + q3.toFixed(2) + ") — ";
+        var q3BodyStr = "";
+        if (q3 >= 4.20) {
+            q3BodyStr = q3HeaderStr + "<strong>Quadrant Strength.</strong> This area represents a strong emotional intelligence capability. The individual consistently demonstrates effective emotional judgement in complex leadership situations. " + targetUser + " excels at mapping corporate political grids and field networks, accurately reading underlying human burnout indicators or unvoiced peer alignment resistances before they turn into project friction points.";
+        } else if (q3 < 3.50) {
+            q3BodyStr = q3HeaderStr + "<strong>Quadrant Development Area.</strong> This area may limit leadership effectiveness under pressure. Targeted development will significantly enhance influence, decision quality, and team outcomes. Scores highlight a tendency to miss hidden emotional blockages across team groups, ceding strategic control by depending too strictly on formal compliance updates.";
+        } else {
+            q3BodyStr = q3HeaderStr + "<strong>Quadrant Stable Baseline.</strong> " + targetUser + " cleanly records observable team feedback cues during standard presentation matrices, preserving acceptable environmental alignment scores.";
+        }
+
+        var q4HeaderStr = "Quadrant 4: Relationship Management (Current Score: " + q4.toFixed(2) + ") — ";
+        var q4BodyStr = "";
+        if (q4 >= 4.20) {
+            q4BodyStr = q4HeaderStr + "<strong>Quadrant Strength.</strong> This area represents a strong emotional intelligence capability. The individual consistently demonstrates effective emotional judgement in complex leadership situations. " + targetUser + " demonstrates mastery over interest-based negotiation protocols, converting inter-departmental turf wars into integrative wins while maintaining long-term relational assets.";
+        } else if (q4 < 3.50) {
+            q4BodyStr = q4HeaderStr + "<strong>Quadrant Development Area.</strong> This area may limit leadership effectiveness under pressure. Targeted development will significantly enhance influence, decision quality, and team outcomes. " + targetUser + " shows a risk pattern of defaulting to superficial harmony models, avoiding difficult behavioral conversations and allowing deep team fractures to fester.";
+        } else {
+            q4BodyStr = q4HeaderStr + "<strong>Quadrant Stable Baseline.</strong> " + targetUser + " orchestrates ordinary stakeholder alignments and coordination tasks with stable reliability, meeting baseline performance benchmarks.";
+        }
+
+        narrativeBox.innerHTML += "<div class='quadrant-analysis-block'><h5>Quadrant 1: Internal Self-Awareness Audit</h5><p style='font-size:13.5px; line-height:1.5; color:var(--text-dark);'>" + q1BodyStr + "</p></div>";
+        narrativeBox.innerHTML += "<div class='quadrant-analysis-block'><h5>Quadrant 2: Internal Self-Management Regulation</h5><p style='font-size:13.5px; line-height:1.5; color:var(--text-dark);'>" + q2BodyStr + "</p></div>";
+        narrativeBox.innerHTML += "<div class='quadrant-analysis-block'><h5>Quadrant 3: Interpersonal Social Mapping</h5><p style='font-size:13.5px; line-height:1.5; color:var(--text-dark);'>" + q3BodyStr + "</p></div>";
+        narrativeBox.innerHTML += "<div class='quadrant-analysis-block'><h5>Quadrant 4: Strategic Relational Calibration</h5><p style='font-size:13.5px; line-height:1.5; color:var(--text-dark);'>" + q4BodyStr + "</p></div>";
+
+        var actions = { start: "", stop: "", continue: "" };
+
+        if (profileType.indexOf("Balanced") > -1) {
+            actions.start = "Launch system-wide cross-functional reverse mentoring tracks to distribute your balanced behavioral processing framework down into developing high-potential management pools.";
+            actions.stop = "Halt internal isolation strategies during rapid project shifts; do not permit premium strategic data loops to remain exclusively within senior leadership silos.";
+            actions.continue = "Sustain your proactive environmental tracking mechanisms that explicitly protect psychological safety boundaries across highly matrixed organizational verticals.";
+        } else if (profileType.indexOf("Risk") > -1) {
+            actions.start = "Instate an ironclad post-feedback calibration loop requiring a mandatory 90-second cognitive pause protocol immediately following unexpected operational delays.";
+            actions.stop = "Cease immediate, unbuffered digital communications or sharp public corrections that trigger team defense shields and degrade execution speed indicators.";
+            actions.continue = "Lean heavily onto verified quantitative metrics frameworks to anchor core logical decision tracks safely while managing emotional field disruptions.";
+        } else if (profileType.indexOf("Internal") > -1) {
+            actions.start = "Conduct deep stakeholder interest mapping arrays and informal alliance validation checks prior to deploying new cross-departmental policy pipelines.";
+            actions.stop = "Stop assuming that clear mathematical data models or objective project milestones automatically resolve implicit human anxiety variables or buy-in blocks.";
+            actions.continue = "Capitalize on your advanced internal impulse control and acute trigger awareness to anchor volatile strategy changes calmly.";
+        } else { 
+            actions.start = "Enforce structured mental decoupling buffers and rigorous boundaries to insulate personal energy from interpersonal feedback fatigue factors.";
+            actions.stop = "Stop prioritizing superficial harmony loops that bypass critical performance corrections or structural timeline interventions to avoid short-term tension.";
+            actions.continue = "Maximize your exceptional corporate field empathy tracking to unite competing stakeholder cohorts behind shared institutional targets.";
+        }
+
+        matrixContainer.innerHTML = `
+            <div class="action-card start">
+                <h5>START (Strategic Initiatives)</h5>
+                <p style="font-size:13.5px; line-height:1.5; color:var(--primary-dark);">${actions.start}</p>
+            </div>
+            <div class="action-card stop">
+                <h5>STOP (Risk Mitigations)</h5>
+                <p style="font-size:13.5px; line-height:1.5; color:var(--primary-dark);">${actions.stop}</p>
+            </div>
+            <div class="action-card continue">
+                <h5>CONTINUE (Core Competencies)</h5>
+                <p style="font-size:13.5px; line-height:1.5; color:var(--primary-dark);">${actions.continue}</p>
+            </div>
+        `;
+    }
+</script>
+</body>
+</html>
